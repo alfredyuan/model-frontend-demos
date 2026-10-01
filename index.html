@@ -11,9 +11,9 @@
   main { max-width:860px; margin:0 auto; }
   h1 { font-size:26px; font-weight:800; }
   .sub { color:#52514e; font-size:14px; margin-top:6px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));
     gap:16px; margin-top:24px; }
-  a.card { display:block; background:#fff; border:1px solid #ecebe7; border-radius:12px;
+  a.card { display:block; min-width:0; background:#fff; border:1px solid #ecebe7; border-radius:12px;
     overflow:hidden; text-decoration:none; color:inherit; }
   a.card img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
   .meta { padding:12px 14px; }
