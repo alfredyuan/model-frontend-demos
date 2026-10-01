@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#08192b" />
+  <title>Pelican Air · 鹈鹕骑行计划</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <div id="canvas-wrap"></div>
+    <div class="vignette"></div>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✦</span><span>PELican<span class="brand-accent">/</span>AIR</span></div>
+      <div class="top-status"><span class="status-dot"></span><span>LIVE · COASTAL ROUTE</span></div>
+    </header>
+    <section class="hero-copy">
+      <p class="eyebrow">SEASIDE MOBILITY STUDY <span>№ 07</span></p>
+      <h1>风从海上来，<br><em>骑着鹈鹕去兜风。</em></h1>
+      <p class="intro">一只不赶时间的鹈鹕，和一辆专为海风调校的单车。<br class="desktop-only">欢迎登上今天的沿岸环线。</p>
+      <div class="route-pill"><span class="route-icon">↗</span><span><b>COASTAL LOOP</b><small>12.8 KM · EASY BREEZE</small></span><span class="route-arrow">→</span></div>
+    </section>
+    <aside class="ride-card glass">
+      <div class="card-top"><span class="label">TODAY'S RIDE</span><span class="sun-icon">☼</span></div>
+      <div class="temp"><strong>24</strong><span>°C<br><small>海风微醺</small></span></div>
+      <div class="card-line"></div>
+      <div class="stats"><span><b>08:42</b><small>出发时间</small></span><span><b>16.4</b><small>平均时速</small></span><span><b>02:18</b><small>预计用时</small></span></div>
+    </aside>
+    <div class="scene-hint"><span class="gesture-icon">⌁</span><span>拖动探索 · 双指缩放</span></div>
+    <div class="bottom-ui">
+      <div class="quote"><span class="quote-mark">“</span><span>每一段旅程，都值得<br>一个更好的风景。</span></div>
+      <div class="controls glass"><button id="camera-btn" aria-label="重置视角">⟳</button><button id="sound-btn" aria-label="声音开关">◒</button></div>
+    </div>
+    <div class="loading" id="loading"><span class="loader"></span>正在准备海风...</div>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

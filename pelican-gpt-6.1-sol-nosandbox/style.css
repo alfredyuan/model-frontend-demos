@@ -1,0 +1,45 @@
+:root { --ink:#f4f4ee; --muted:rgba(244,244,238,.64); --blue:#75d5d0; --orange:#f3a66f; --glass:rgba(11,31,47,.52); }
+* { box-sizing:border-box; }
+html,body { width:100%; height:100%; margin:0; overflow:hidden; background:#092033; color:var(--ink); font-family:Manrope,system-ui,sans-serif; }
+body { -webkit-font-smoothing:antialiased; }
+#app,#canvas-wrap { position:relative; width:100%; height:100%; overflow:hidden; }
+#canvas-wrap canvas { display:block; width:100%; height:100%; touch-action:none; }
+.vignette { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 62% 46%,transparent 26%,rgba(3,13,24,.1) 72%,rgba(2,10,18,.62) 120%); mix-blend-mode:multiply; }
+.topbar { position:absolute; inset:0 0 auto; z-index:3; display:flex; justify-content:space-between; align-items:center; padding:28px 42px; font-size:10px; letter-spacing:.15em; font-weight:700; }
+.brand { display:flex; align-items:center; gap:11px; letter-spacing:.2em; }
+.brand-mark { color:var(--orange); font-size:19px; transform:rotate(15deg); display:inline-block; }
+.brand-accent { color:var(--orange); margin:0 2px; }
+.top-status { color:rgba(244,244,238,.65); display:flex; align-items:center; gap:9px; font-family:'DM Mono',monospace; font-size:9px; }
+.status-dot { width:7px; height:7px; background:#7ef0b3; border-radius:50%; box-shadow:0 0 14px #7ef0b3; }
+.hero-copy { position:absolute; z-index:2; left:7vw; top:22vh; max-width:530px; pointer-events:none; }
+.eyebrow { margin:0 0 22px; color:var(--blue); font:500 10px 'DM Mono',monospace; letter-spacing:.22em; }
+.eyebrow span { color:rgba(244,244,238,.48); margin-left:16px; }
+h1 { font-size:clamp(39px,5.1vw,76px); line-height:1.04; letter-spacing:-.065em; margin:0; font-weight:700; text-shadow:0 8px 35px rgba(0,0,0,.18); }
+h1 em { font-style:normal; color:var(--orange); }
+.intro { color:var(--muted); font-size:14px; line-height:1.8; margin:27px 0 28px; letter-spacing:.02em; }
+.route-pill { width:256px; display:flex; align-items:center; gap:12px; color:#102e40; background:rgba(237,243,224,.91); border-radius:7px; padding:12px 14px; box-shadow:0 16px 30px rgba(0,0,0,.14); }
+.route-icon { color:#e48655; font-size:22px; font-weight:700; }
+.route-pill b,.route-pill small { display:block; }
+.route-pill b { font-size:10px; letter-spacing:.13em; }
+.route-pill small { color:#63808a; font:9px 'DM Mono',monospace; margin-top:4px; }
+.route-arrow { margin-left:auto; font-size:20px; color:#49717d; }
+.glass { background:var(--glass); border:1px solid rgba(255,255,255,.15); box-shadow:0 20px 50px rgba(0,0,0,.12),inset 0 1px rgba(255,255,255,.1); backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); }
+.ride-card { position:absolute; right:7vw; top:24vh; z-index:2; width:196px; padding:18px 19px 16px; border-radius:10px; }
+.card-top,.stats { display:flex; justify-content:space-between; align-items:center; }
+.label { color:rgba(244,244,238,.56); font:10px 'DM Mono',monospace; letter-spacing:.12em; }
+.sun-icon { color:#ffd28c; font-size:19px; }
+.temp { display:flex; align-items:center; margin:20px 0 13px; }
+.temp strong { font-size:55px; line-height:1; letter-spacing:-.08em; font-weight:500; }
+.temp span { color:var(--orange); font:16px 'DM Mono',monospace; line-height:1.15; margin-left:8px; }
+.temp small { color:rgba(244,244,238,.57); font:9px Manrope,sans-serif; white-space:nowrap; }
+.card-line { height:1px; background:rgba(255,255,255,.14); margin-bottom:13px; }
+.stats { gap:9px; }
+.stats span { flex:1; }.stats b,.stats small { display:block; }.stats b { font:11px 'DM Mono',monospace; }.stats small { color:rgba(244,244,238,.44); font-size:8px; margin-top:5px; white-space:nowrap; }
+.scene-hint { position:absolute; z-index:2; bottom:17%; left:50%; transform:translateX(-50%); color:rgba(244,244,238,.63); display:flex; gap:9px; align-items:center; font:9px 'DM Mono',monospace; letter-spacing:.09em; pointer-events:none; }
+.gesture-icon { color:var(--blue); font-size:24px; transform:rotate(-20deg); }
+.bottom-ui { position:absolute; z-index:3; left:7vw; right:7vw; bottom:35px; display:flex; align-items:end; justify-content:space-between; pointer-events:none; }
+.quote { display:flex; align-items:flex-start; color:rgba(244,244,238,.67); font-size:12px; line-height:1.6; letter-spacing:.03em; }.quote-mark { color:var(--orange); font:38px Georgia; line-height:.7; margin-right:9px; }
+.controls { pointer-events:auto; display:flex; border-radius:8px; overflow:hidden; }.controls button { width:43px; height:40px; border:0; color:rgba(244,244,238,.82); background:transparent; font-size:20px; cursor:pointer; }.controls button+button { border-left:1px solid rgba(255,255,255,.12); }.controls button:active { background:rgba(255,255,255,.15); }
+.loading { position:absolute; inset:0; z-index:10; display:flex; justify-content:center; align-items:center; gap:10px; background:#092033; color:var(--muted); font:10px 'DM Mono',monospace; letter-spacing:.1em; transition:opacity .6s ease; }.loading.done { opacity:0; pointer-events:none; }.loader { width:13px; height:13px; border:1px solid rgba(255,255,255,.3); border-top-color:var(--orange); border-radius:50%; animation:spin .8s linear infinite; } @keyframes spin { to { transform:rotate(360deg); } }
+@media (max-width:700px) { .topbar { padding:20px 20px; }.top-status { font-size:7px; }.hero-copy { left:22px; top:16vh; max-width:315px; }.eyebrow { margin-bottom:15px; font-size:8px; }.eyebrow span { margin-left:7px; } h1 { font-size:40px; }.intro { margin:17px 0 20px; font-size:11px; line-height:1.65; }.desktop-only { display:none; }.route-pill { width:220px; padding:10px 11px; }.ride-card { right:20px; top:auto; bottom:104px; width:164px; padding:14px; transform:scale(.88); transform-origin:right bottom; }.temp { margin:12px 0 10px; }.temp strong { font-size:47px; }.stats small { font-size:7px; }.scene-hint { bottom:28%; font-size:8px; white-space:nowrap; }.bottom-ui { left:20px; right:20px; bottom:20px; }.quote { font-size:10px; }.quote-mark { font-size:30px; }.controls button { width:38px; height:36px; } }
+@media (max-height:650px) and (min-width:701px) { .hero-copy { top:17vh; }.ride-card { top:16vh; transform:scale(.9); transform-origin:top right; }.bottom-ui { bottom:20px; } }
