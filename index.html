@@ -38,9 +38,29 @@
   <p class="sub">大模型前端生成能力展示</p>
 
   <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
-  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。两边都使用本地 Three.js r160，不走 CDN。</p>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Opus 5.5 和 GPT-6.1 Sol 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
 
   <div class="grid">
+    <div class="card">
+      <a href="./pelican-claude-opus-5.5/"><img src="./pelican-claude-opus-5.5/preview.png" alt="Claude Opus 5.5 版本"></a>
+      <div class="meta">
+        <span class="model claude">Claude Opus 5.5</span>
+        <h3>环岛骑行 · 可玩小游戏</h3>
+        <dl>
+          <dt>工具</dt><dd>Claude Code 2.1.286 · 无头模式新会话</dd>
+          <dt>日期</dt><dd>2026-10-02</dd>
+          <dt>过程</dt><dd>一次完成，未反馈报错。生成过程中自己装了 Playwright 截图检查（和 GPT-6.1 Sol 条件不同）。页面代码未经人工修改</dd>
+          <dt>内容</dt><dd>昼夜循环、灯塔、接飞鱼计分、合成音效、6 种视角、跳跃/铃铛/放手</dd>
+          <dt>已知问题</dt><dd>场景较重，中低端手机可能卡顿</dd>
+          <dt>耗时/用量</dt><dd>74 分钟 · 输出约 148k tokens · 约 $8.7</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-claude-opus-5.5/">打开页面 →</a>
+          <a href="./pelican-claude-opus-5.5/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <a href="./pelican/"><img src="./pelican/preview.png" alt="Claude Opus 4.8 版本"></a>
       <div class="meta">
@@ -49,7 +69,7 @@
         <dl>
           <dt>工具</dt><dd>Claude Code</dd>
           <dt>日期</dt><dd>2026-10-01</dd>
-          <dt>过程</dt><dd>多轮迭代，生成过程中用无头浏览器截图检查并修复</dd>
+          <dt>过程</dt><dd>在对话中多轮迭代，生成过程中用无头浏览器截图检查并修复</dd>
         </dl>
         <div class="links"><a href="./pelican/">打开页面 →</a></div>
       </div>

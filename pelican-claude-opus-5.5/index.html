@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#3a7ed8" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>鹈鹕骑单车 · Pelican Grand Tour</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚲</text></svg>" />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="loading">
+    <div class="loader">
+      <div class="wheel"></div>
+      <div class="wheel"></div>
+    </div>
+    <p>鹈鹕正在热身…</p>
+    <noscript><p>需要开启 JavaScript 才能观看 🐦🚲</p></noscript>
+  </div>
+
+  <header id="hud">
+    <div class="title">
+      <span class="logo">🐦🚲</span>
+      <div>
+        <h1>鹈鹕骑单车</h1>
+        <small>Pelican Grand Tour</small>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="kmh">0</b><span>km/h</span></div>
+      <div class="stat" id="fishBox"><b id="fishN">0</b><span>🐟 鱼</span></div>
+      <div class="stat" id="lapBox"><b id="lapN">1</b><span>🏁 圈</span></div>
+      <div class="stat"><b id="km">0.00</b><span>km</span></div>
+    </div>
+  </header>
+
+  <div id="toast"></div>
+  <div id="hint">👆 单指拖动旋转 · 🤏 双指缩放 · 点一下鹈鹕试试！</div>
+
+  <footer id="controls">
+    <label class="speed">
+      <span class="ico">🐢</span>
+      <input id="speed" type="range" min="0" max="45" step="1" value="20" aria-label="骑行速度" />
+      <span class="ico">🐇</span>
+      <span class="val"><b id="speedVal">20</b> km/h</span>
+    </label>
+    <nav class="btns">
+      <button id="bCam" type="button"><i>🎥</i><span>视角</span></button>
+      <button id="bBell" type="button"><i>🔔</i><span>铃铛</span></button>
+      <button id="bJump" type="button"><i>⤴️</i><span>跳跃</span></button>
+      <button id="bHands" type="button"><i>🙌</i><span>放手</span></button>
+      <button id="bTime" type="button"><i>🌗</i><span>昼夜</span></button>
+      <button id="bSound" type="button"><i>🔊</i><span>声音</span></button>
+    </nav>
+  </footer>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
