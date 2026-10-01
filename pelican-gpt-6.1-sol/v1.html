@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#08141e" />
+  <title>Pelican Express · 海风骑行</title>
+  <style>
+    :root { color-scheme: dark; --ink:#eaf5f5; --muted:#91aeb1; --accent:#f4bd69; --cyan:#66d6d4; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; width:100%; height:100%; overflow:hidden; background:#08141e; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { touch-action:none; }
+    #app, canvas { position:fixed; inset:0; width:100%; height:100%; }
+    canvas { display:block; outline:none; }
+    .vignette { pointer-events:none; position:fixed; inset:0; z-index:2; background:radial-gradient(ellipse at 50% 45%, transparent 40%, rgba(2,10,17,.2) 75%, rgba(2,8,13,.75) 130%); }
+    .grain { pointer-events:none; position:fixed; inset:0; z-index:3; opacity:.055; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); mix-blend-mode:screen; }
+    .topbar { position:fixed; left:clamp(18px,5vw,72px); right:clamp(18px,5vw,72px); top:clamp(18px,4vw,46px); z-index:5; display:flex; justify-content:space-between; align-items:flex-start; pointer-events:none; }
+    .brand { display:flex; align-items:center; gap:11px; text-transform:uppercase; letter-spacing:.18em; font-size:10px; font-weight:700; color:var(--ink); }
+    .brand-mark { width:31px; height:31px; border:1px solid rgba(234,245,245,.5); border-radius:50%; display:grid; place-items:center; font-size:16px; color:var(--accent); transform:rotate(-12deg); }
+    .status { display:flex; align-items:center; gap:9px; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+    .dot { width:7px; height:7px; border-radius:50%; background:#7be5bb; box-shadow:0 0 15px #7be5bb; }
+    .hero { position:fixed; z-index:5; left:clamp(18px,8vw,120px); top:50%; transform:translateY(-54%); pointer-events:none; width:min(440px,72vw); }
+    .eyebrow { margin:0 0 16px; color:var(--accent); font-size:11px; letter-spacing:.28em; text-transform:uppercase; font-weight:700; }
+    h1 { margin:0; color:var(--ink); font-family: Georgia, "Times New Roman", serif; font-size:clamp(54px,9vw,124px); line-height:.82; font-weight:400; letter-spacing:-.065em; }
+    h1 em { display:block; color:#b9d5d1; font-size:.54em; line-height:1.15; font-style:italic; letter-spacing:-.05em; margin-left:.08em; }
+    .dek { width:270px; margin:28px 0 0; color:#a8c0c0; font-size:12px; line-height:1.75; letter-spacing:.02em; }
+    .hint { position:fixed; z-index:5; left:50%; bottom:34px; transform:translateX(-50%); color:rgba(234,245,245,.63); font-size:10px; letter-spacing:.18em; text-transform:uppercase; pointer-events:none; white-space:nowrap; }
+    .hint span { color:var(--accent); font-size:13px; margin:0 6px; }
+    .meter { position:fixed; z-index:5; right:clamp(18px,5vw,72px); bottom:clamp(22px,5vw,54px); width:150px; pointer-events:none; }
+    .meter-label { display:flex; justify-content:space-between; color:var(--muted); font-size:9px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:9px; }
+    .meter-track { height:2px; background:rgba(234,245,245,.22); overflow:hidden; }
+    .meter-fill { height:100%; width:64%; background:var(--accent); box-shadow:0 0 12px var(--accent); transition:width .3s; }
+    .control { position:fixed; z-index:5; left:50%; bottom:18px; transform:translateX(-50%); display:none; gap:8px; }
+    button { border:1px solid rgba(234,245,245,.24); border-radius:50%; width:42px; height:42px; background:rgba(5,16,24,.42); color:var(--ink); font:inherit; font-size:16px; backdrop-filter:blur(8px); }
+    button:active { background:rgba(244,189,105,.35); }
+    @media (max-width:700px) { .hero { top:21%; transform:none; width:75vw; } .hero .dek { margin-top:18px; width:235px; font-size:11px; } .hint { bottom:86px; font-size:8px; } .meter { bottom:27px; right:18px; width:110px; } .control { display:flex; } h1 { font-size:clamp(54px,16vw,88px); } }
+  </style>
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div class="vignette"></div><div class="grain"></div>
+  <header class="topbar"><div class="brand"><div class="brand-mark">✦</div><span>Pelican Express</span></div><div class="status"><i class="dot"></i> Live route · 07:42</div></header>
+  <main class="hero"><p class="eyebrow">A small coastal adventure</p><h1>Ride the<br><em>good tide.</em></h1><p class="dek">清晨的海风从翅尖穿过。跟随这只不赶时间的骑手，沿着潮汐，去往一片更亮的蓝。</p></main>
+  <div class="hint"><span>↔</span> 拖动探索海岸 <span>·</span> 双指缩放</div>
+  <div class="meter"><div class="meter-label"><span>Sea breeze</span><span id="speed">64%</span></div><div class="meter-track"><div class="meter-fill" id="fill"></div></div></div>
+  <div class="control"><button id="slower" aria-label="减速">−</button><button id="faster" aria-label="加速">+</button></div>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x9bb8b4, 0.011);
+    const camera = new THREE.PerspectiveCamera(34, innerWidth / innerHeight, .1, 500);
+    camera.position.set(8.8, 4.8, 12.5);
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false, powerPreference:'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75)); renderer.setSize(innerWidth, innerHeight); renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15;
+    document.querySelector('#app').appendChild(renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping=true; controls.dampingFactor=.055; controls.enablePan=false; controls.minDistance=7; controls.maxDistance=22; controls.minPolarAngle=.75; controls.maxPolarAngle=1.45; controls.target.set(0,2,0);
+
+    scene.add(new THREE.HemisphereLight(0xdaf6ef, 0x172633, 2.2));
+    const sun = new THREE.DirectionalLight(0xffd5a1, 4.3); sun.position.set(-8,12,8); sun.castShadow=true; sun.shadow.mapSize.set(1024,1024); sun.shadow.camera.left=-14; sun.shadow.camera.right=14; sun.shadow.camera.top=14; sun.shadow.camera.bottom=-14; scene.add(sun);
+    const rim = new THREE.DirectionalLight(0x62b9d0, 1.7); rim.position.set(10,5,-10); scene.add(rim);
+    const mat = (color, rough=.8, metal=0) => new THREE.MeshStandardMaterial({color, roughness:rough, metalness:metal, flatShading:true});
+    const cream=mat(0xf4eee0), beak=mat(0xf0a84c), dark=mat(0x263b42), wing=mat(0xc8d8d1), teal=mat(0x1f5960), leather=mat(0x875039), coral=mat(0xe57356), chrome=mat(0xb9d0cb,.35,.7), sand=mat(0xc89b69), sea=mat(0x277b86,.35), foam=mat(0xb8e0d7,.5);
+    const group = new THREE.Group(); group.position.set(0, .2, 0); scene.add(group);
+    function mesh(g,m,p=[0,0,0],s=[1,1,1]) { const x=new THREE.Mesh(g,m); x.position.set(...p); x.scale.set(...s); x.castShadow=true; x.receiveShadow=true; group.add(x); return x; }
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(80,80), mat(0x17333b)); ground.rotation.x=-Math.PI/2; ground.position.y=-.14; ground.receiveShadow=true; scene.add(ground);
+    const shore = new THREE.Mesh(new THREE.PlaneGeometry(70,22,1,8), sand); shore.rotation.x=-Math.PI/2; shore.position.set(0,-.1,-13); scene.add(shore);
+    const ocean = new THREE.Mesh(new THREE.PlaneGeometry(70,38,32,16), sea); ocean.rotation.x=-Math.PI/2; ocean.position.set(0,-.19,-27); scene.add(ocean);
+    for(let i=0;i<7;i++){ const line=new THREE.Mesh(new THREE.TorusGeometry(7+i*1.8,.025,5,100,Math.PI),foam); line.rotation.x=-Math.PI/2; line.rotation.z=Math.PI; line.position.set((i%2?2:-3),-.06,-13-i*2.3); line.scale.x=1.5; scene.add(line); }
+    const bike=new THREE.Group(); group.add(bike); bike.position.y=.15;
+    const wheelGeo=new THREE.TorusGeometry(1.03,.075,10,32); const wheels=[];
+    for(const x of [-1.35,1.35]){ const w=new THREE.Mesh(wheelGeo,chrome); w.rotation.y=Math.PI/2; w.position.set(x,1.03,0); w.castShadow=true; bike.add(w); wheels.push(w); for(let j=0;j<10;j++){ const spoke=new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.98,5),chrome); spoke.rotation.z=Math.PI/2; spoke.rotation.y=j*Math.PI/5; spoke.position.copy(w.position); bike.add(spoke); } }
+    const framePts=[[-1.35,1.03,0],[-.35,1.03,0],[-.83,2.04,0],[-1.35,1.03,0],[-.83,2.04,0],[1.35,1.03,0],[-.35,1.03,0],[.65,1.98,0],[1.35,1.03,0]];
+    for(let i=0;i<framePts.length;i+=2){ const a=new THREE.Vector3(...framePts[i]), b=new THREE.Vector3(...framePts[i+1]); const d=b.clone().sub(a), bar=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,d.length,8),teal); bar.position.copy(a).add(b).multiplyScalar(.5); bar.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize()); bar.castShadow=true; bike.add(bar); }
+    const seat=new THREE.Mesh(new THREE.BoxGeometry(.55,.1,.28),leather); seat.position.set(-.86,2.14,0); seat.rotation.z=-.08; bike.add(seat); const handle=new THREE.Mesh(new THREE.TorusGeometry(.25,.045,6,18,Math.PI),chrome); handle.rotation.z=Math.PI/2; handle.position.set(.65,2.1,0); bike.add(handle);
+    const crank=new THREE.Group(); crank.position.set(-.35,1.03,0); bike.add(crank); const crankRod=new THREE.Mesh(new THREE.BoxGeometry(.7,.045,.045),chrome); crank.add(crankRod); const pedal=new THREE.Mesh(new THREE.BoxGeometry(.2,.05,.08),chrome); pedal.position.x=.35; crank.add(pedal);
+    const bird=new THREE.Group(); bird.position.set(-.08,2.12,0); group.add(bird);
+    const body=new THREE.Mesh(new THREE.SphereGeometry(.82,12,8),cream); body.scale.set(1.0,1.35,.78); body.rotation.z=-.18; body.castShadow=true; bird.add(body);
+    const neck=new THREE.Mesh(new THREE.CylinderGeometry(.3,.44,1.35,10),cream); neck.position.set(.38,1.0,0); neck.rotation.z=-.15; neck.castShadow=true; bird.add(neck);
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.52,12,8),cream); head.position.set(.57,1.77,0); head.scale.set(1.05,1,.9); head.castShadow=true; bird.add(head);
+    const eye=new THREE.Mesh(new THREE.SphereGeometry(.055,8,8),dark); eye.position.set(.84,1.88,-.43); bird.add(eye); const eye2=eye.clone(); eye2.position.z=.43; bird.add(eye2);
+    const pouch=new THREE.Mesh(new THREE.SphereGeometry(.42,10,6),beak); pouch.position.set(1.0,1.45,0); pouch.scale.set(1.55,.8,.7); pouch.castShadow=true; bird.add(pouch);
+    const upperBeak=new THREE.Mesh(new THREE.ConeGeometry(.23,1.18,4),beak); upperBeak.rotation.z=-Math.PI/2; upperBeak.position.set(1.42,1.79,0); upperBeak.scale.y=1.2; upperBeak.castShadow=true; bird.add(upperBeak);
+    const wingL=new THREE.Mesh(new THREE.SphereGeometry(.48,8,6),wing); wingL.position.set(-.24,2.38,-.67); wingL.scale.set(.48,1.35,.18); wingL.rotation.z=-.4; bird.add(wingL); const wingR=wingL.clone(); wingR.position.z=.67; bird.add(wingR);
+    const legMat=mat(0xd98e42), leg1=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,.75,7),legMat); leg1.position.set(-.18,1.24,-.25); leg1.rotation.z=-.12; bird.add(leg1); const leg2=leg1.clone(); leg2.position.z=.25; bird.add(leg2);
+    const foot1=new THREE.Mesh(new THREE.BoxGeometry(.42,.06,.12),legMat); foot1.position.set(-.2,.87,-.25); bird.add(foot1); const foot2=foot1.clone(); foot2.position.z=.25; bird.add(foot2);
+    const rockMat=mat(0x36535a); for(let i=0;i<13;i++){ const r=new THREE.Mesh(new THREE.DodecahedronGeometry(.35+Math.random()*.55,0),rockMat); r.position.set(-7+Math.random()*14,-.02,-8-Math.random()*12); r.scale.y=.55; r.rotation.set(Math.random(),Math.random(),Math.random()); r.castShadow=true; scene.add(r); }
+    for(let i=0;i<20;i++){ const blade=new THREE.Mesh(new THREE.ConeGeometry(.05,.8+Math.random()*.9,4),mat(i%2?0x5a897b:0x7ca394)); blade.position.set(-8+Math.random()*16,.35,-4+Math.random()*3); blade.rotation.z=(Math.random()-.5)*.7; scene.add(blade); }
+    const sunDisc=new THREE.Mesh(new THREE.CircleGeometry(2.2,32),new THREE.MeshBasicMaterial({color:0xffd98f,transparent:true,opacity:.8})); sunDisc.position.set(-10,10,-19); scene.add(sunDisc);
+    const clouds=new THREE.Group(); scene.add(clouds); for(let i=0;i<10;i++){ const c=new THREE.Mesh(new THREE.SphereGeometry(1+Math.random()*1.4,8,6),new THREE.MeshBasicMaterial({color:0xdce9dc,transparent:true,opacity:.18})); c.position.set(-14+i*3.1,5+Math.random()*3,-15-Math.random()*8); c.scale.y=.35; clouds.add(c); }
+    let speed=.64, t=0;
+    function setSpeed(v){ speed=Math.min(1,Math.max(.25,v)); document.querySelector('#speed').textContent=Math.round(speed*100)+'%'; document.querySelector('#fill').style.width=(speed*100)+'%'; }
+    document.querySelector('#faster').onclick=()=>setSpeed(speed+.1); document.querySelector('#slower').onclick=()=>setSpeed(speed-.1);
+    const clock=new THREE.Clock();
+    function animate(){ requestAnimationFrame(animate); const dt=Math.min(clock.getDelta(),.05); t+=dt*speed;
+      bike.rotation.y=Math.sin(t*.55)*.035; wheels.forEach(w=>w.rotation.x-=dt*(2.4+speed*4)); crank.rotation.z-=dt*(3+speed*7);
+      bird.position.y=2.12+Math.sin(t*2.3)*.035; bird.rotation.z=Math.sin(t*1.5)*.018; wingL.rotation.z=-.4+Math.sin(t*2.1)*.035; wingR.rotation.z=.4-Math.sin(t*2.1)*.035;
+      ocean.position.x=Math.sin(t*.18)*.7; controls.update(); renderer.render(scene,camera); }
+    animate();
+    addEventListener('resize',()=>{ camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); renderer.setPixelRatio(Math.min(devicePixelRatio,1.75)); });
+  </script>
+</body>
+</html>

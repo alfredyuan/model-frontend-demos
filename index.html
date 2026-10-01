@@ -11,28 +11,69 @@
   main { max-width:860px; margin:0 auto; }
   h1 { font-size:26px; font-weight:800; }
   .sub { color:#52514e; font-size:14px; margin-top:6px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));
-    gap:16px; margin-top:24px; }
-  a.card { display:block; min-width:0; background:#fff; border:1px solid #ecebe7; border-radius:12px;
-    overflow:hidden; text-decoration:none; color:inherit; }
-  a.card img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
-  .meta { padding:12px 14px; }
-  .meta h2 { font-size:16px; font-weight:700; }
-  .meta p { font-size:13px; color:#52514e; margin-top:4px; }
+  h2.topic { font-size:18px; font-weight:700; margin-top:28px; }
+  .topic-sub { color:#52514e; font-size:13px; margin-top:4px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));
+    gap:16px; margin-top:14px; }
+  .card { background:#fff; border:1px solid #ecebe7; border-radius:12px; overflow:hidden; min-width:0; }
+  .card > a { display:block; text-decoration:none; color:inherit; }
+  .card img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+  .meta { padding:12px 14px 14px; }
+  .model { display:inline-block; font-size:13px; font-weight:700; padding:3px 9px;
+    border-radius:999px; color:#fff; }
+  .model.claude { background:#c15f3c; }
+  .model.gpt { background:#10a37f; }
+  .meta h3 { font-size:16px; font-weight:700; margin-top:8px; }
+  .meta dl { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin-top:8px;
+    font-size:12.5px; }
+  .meta dt { color:#898781; }
+  .meta dd { color:#52514e; }
+  .meta .links { margin-top:10px; font-size:13px; }
+  .meta .links a { color:#2a78d6; text-decoration:none; margin-right:12px; }
 </style>
 </head>
 <body>
 <main>
   <h1>Model Frontend Demos</h1>
   <p class="sub">大模型前端生成能力展示</p>
+
+  <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。两边都使用本地 Three.js r160，不走 CDN。</p>
+
   <div class="grid">
-    <a class="card" href="./pelican/">
-      <img src="./pelican/preview.png" alt="Pelican riding a bicycle">
+    <div class="card">
+      <a href="./pelican/"><img src="./pelican/preview.png" alt="Claude Opus 4.8 版本"></a>
       <div class="meta">
-        <h2>🚲 Pelican Riding a Bicycle</h2>
-        <p>Three.js 3D · 拖动旋转、双指缩放</p>
+        <span class="model claude">Claude Opus 4.8</span>
+        <h3>卡通风格 · 草地公路</h3>
+        <dl>
+          <dt>工具</dt><dd>Claude Code</dd>
+          <dt>日期</dt><dd>2026-10-01</dd>
+          <dt>过程</dt><dd>多轮迭代，生成过程中用无头浏览器截图检查并修复</dd>
+        </dl>
+        <div class="links"><a href="./pelican/">打开页面 →</a></div>
       </div>
-    </a>
+    </div>
+
+    <div class="card">
+      <a href="./pelican-gpt-6.1-sol/"><img src="./pelican-gpt-6.1-sol/preview.png" alt="GPT-6.1 Sol 版本"></a>
+      <div class="meta">
+        <span class="model gpt">GPT-6.1 Sol</span>
+        <h3>低多边形风格 · 海岸</h3>
+        <dl>
+          <dt>工具</dt><dd>Codex CLI 0.154 · reasoning medium</dd>
+          <dt>日期</dt><dd>2026-10-02</dd>
+          <dt>过程</dt><dd>第一版运行报错、3D 不显示；反馈一次报错后由模型自行修复。页面代码未经人工修改</dd>
+          <dt>已知问题</dt><dd>车架未显示（几何体 NaN）、手机竖屏遮挡文字</dd>
+          <dt>Tokens</dt><dd>约 68.6k + 115.8k</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-gpt-6.1-sol/">打开修复版 →</a>
+          <a href="./pelican-gpt-6.1-sol/v1.html">第一版（报错）</a>
+          <a href="./pelican-gpt-6.1-sol/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 </body>
