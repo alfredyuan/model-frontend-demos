@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Frontend Demos</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f9f9f7; color:#0b0b0b; padding:32px 20px;
+    font-family:"PingFang SC","Helvetica Neue",system-ui,sans-serif; }
+  main { max-width:860px; margin:0 auto; }
+  h1 { font-size:26px; font-weight:800; }
+  .sub { color:#52514e; font-size:14px; margin-top:6px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:16px; margin-top:24px; }
+  a.card { display:block; background:#fff; border:1px solid #ecebe7; border-radius:12px;
+    overflow:hidden; text-decoration:none; color:inherit; }
+  a.card img { width:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+  .meta { padding:12px 14px; }
+  .meta h2 { font-size:16px; font-weight:700; }
+  .meta p { font-size:13px; color:#52514e; margin-top:4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Model Frontend Demos</h1>
+  <p class="sub">大模型前端生成能力展示</p>
+  <div class="grid">
+    <a class="card" href="./pelican/">
+      <img src="./pelican/preview.png" alt="Pelican riding a bicycle">
+      <div class="meta">
+        <h2>🚲 Pelican Riding a Bicycle</h2>
+        <p>Three.js 3D · 拖动旋转、双指缩放</p>
+      </div>
+    </a>
+  </div>
+</main>
+</body>
+</html>
