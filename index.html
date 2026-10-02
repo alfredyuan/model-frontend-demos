@@ -38,7 +38,7 @@
   <p class="sub">大模型前端生成能力展示</p>
 
   <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
-  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Opus 5.5 和 GPT-6.1 Sol 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Opus 5.5、GPT-6.1 Sol 和 GPT-6 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
 
   <div class="grid">
     <div class="card">
@@ -57,6 +57,26 @@
         <div class="links">
           <a href="./pelican-claude-opus-5.5/">打开页面 →</a>
           <a href="./pelican-claude-opus-5.5/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="./pelican-gpt-6-astra-xhigh/"><img src="./pelican-gpt-6-astra-xhigh/preview.png" alt="GPT-6 Astra xhigh 版本"></a>
+      <div class="meta">
+        <span class="model gpt">GPT-6 Astra</span>
+        <h3>海风骑行 · reasoning xhigh</h3>
+        <dl>
+          <dt>工具</dt><dd>Codex CLI 0.154 · reasoning xhigh · 关闭沙箱</dd>
+          <dt>日期</dt><dd>2026-10-02</dd>
+          <dt>过程</dt><dd>同一提示词、不限时、可以用浏览器。一次完成，未反馈报错。它起了本地服务并找过 Chrome/Playwright，没在命令行找到就放弃了，最终没有看画面。页面代码未经人工修改</dd>
+          <dt>对比</dt><dd>同模型 medium 版（7 分钟 · 35k tokens，未发布）车平躺在地、鹈鹕悬空；xhigh 版人车一体，建模明显更好</dd>
+          <dt>已知问题</dt><dd>嘴边橙色喉囊位置不对；手机竖屏大标题压在鹈鹕上；部分小字颜色太淡</dd>
+          <dt>耗时/用量</dt><dd>约 54 分钟 · 约 106k tokens</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-gpt-6-astra-xhigh/">打开页面 →</a>
+          <a href="./pelican-gpt-6-astra-xhigh/PROMPT.md">提示词</a>
         </div>
       </div>
     </div>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0e5260" />
+  <title>Pelican Post — Sea Breeze Ride</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="scene" aria-label="Interactive 3D pelican riding a bicycle along the coast"></canvas>
+
+    <header class="masthead">
+      <a class="wordmark" href="." aria-label="Pelican Post home">
+        <span class="wordmark-mark">PP</span>
+        <span>PELICAN POST</span>
+      </a>
+      <div class="route-chip"><span class="route-dot"></span> COASTAL CRUISE <b>/</b> LOOP 01</div>
+    </header>
+
+    <section class="intro" aria-label="Ride information">
+      <p class="eyebrow">THE DAILY FLIGHT</p>
+      <h1>SEA BREEZE<br /><em>ride</em></h1>
+      <p class="dek">A feather-light commute along the sunlit shore. Drag to orbit, pinch to zoom, and let the tide set the pace.</p>
+      <div class="mini-rule"><span></span><small>MADE FOR OPEN WATER</small></div>
+    </section>
+
+    <aside class="telemetry" aria-label="Ride telemetry">
+      <div class="telemetry-top"><span class="live-dot"></span><span id="rideState">CRUISING</span><span class="telemetry-id">PP—001</span></div>
+      <div class="speed-line"><strong id="speedValue">08.4</strong><span>KM/H</span></div>
+      <div class="telemetry-foot"><span>HEADING</span><b id="headingValue">ESE</b><i></i><span>WIND</span><b>12 KT</b></div>
+    </aside>
+
+    <div class="hint"><span class="gesture-icon">↔</span><span>DRAG TO EXPLORE</span></div>
+
+    <nav class="controls" aria-label="Ride controls">
+      <button id="playToggle" class="control-button control-primary" type="button" aria-label="Pause ride" data-tip="Pause ride"><span class="icon-pause"></span></button>
+      <button id="resetCamera" class="control-button" type="button" aria-label="Reset view" data-tip="Reset view"><span class="icon-reset">↻</span></button>
+      <div class="control-divider"></div>
+      <button id="detailToggle" class="control-button detail-button" type="button" aria-label="Toggle detail mode" data-tip="Toggle detail"><span class="detail-bars"><i></i><i></i><i></i></span></button>
+      <span class="controls-label">RIDE CONTROLS</span>
+    </nav>
+
+    <footer class="footer-note"><span>© 2025 PELICAN POST</span><span>THE SHORELINE EDITION</span></footer>
+    <div class="loader" id="loader"><span class="loader-mark">PP</span><span>SETTING THE SCENE</span></div>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
