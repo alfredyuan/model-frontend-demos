@@ -38,9 +38,29 @@
   <p class="sub">大模型前端生成能力展示</p>
 
   <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
-  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Opus 5.5、GPT-6.1 Sol 和 GPT-6 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Fable 5.2、Claude Opus 5.5、GPT-6.1 Sol 和 GPT-6 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
 
   <div class="grid">
+    <div class="card">
+      <a href="./pelican-claude-fable-5.2/"><img src="./pelican-claude-fable-5.2/preview.png" alt="Claude Fable 5.2 版本"></a>
+      <div class="meta">
+        <span class="model claude">Claude Fable 5.2</span>
+        <h3>海岸公路 · 昼夜切换</h3>
+        <dl>
+          <dt>工具</dt><dd>Claude Code 2.1.322（隔离安装）· 无头模式新会话 · 模型 claude-fable-5-2[1m] · 默认 effort</dd>
+          <dt>日期</dt><dd>2026-11-10</dd>
+          <dt>过程</dt><dd>同一提示词，一次完成，未反馈报错。它自己用本机 Chrome 无头模式截了手机竖屏和横屏图做视觉检查，并据此调整了翅膀和围巾位置（为方便截图加了 ?zoom / ?hop 调试参数）。页面代码未经人工修改</dd>
+          <dt>内容</dt><dd>头盔+围巾鹈鹕、前筐活鱼、海岸公路无限滚动、灯塔/帆船/热气球/海豚、白天/黄昏/夜晚切换、合成铃声、轻点跳跃、速度滑块、低帧率自动降画质</dd>
+          <dt>已知问题</dt><dd>真机帧率未实测（Mac 无头 Chrome 约 16 fps）；声音未验证</dd>
+          <dt>耗时/用量</dt><dd>32 分钟 · 27 轮 · 输出约 87k tokens · 约 $5.2</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-claude-fable-5.2/">打开页面 →</a>
+          <a href="./pelican-claude-fable-5.2/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <a href="./pelican-claude-opus-5.5/"><img src="./pelican-claude-opus-5.5/preview.png" alt="Claude Opus 5.5 版本"></a>
       <div class="meta">
