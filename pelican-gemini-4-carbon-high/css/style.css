@@ -1,0 +1,488 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #14243d;
+  color: #f8fafc;
+  font-family: "MiSans", "HarmonyOS Sans SC", "PingFang SC", "Noto Sans CJK SC",
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#scene-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  outline: none;
+}
+
+/* =========================================================================
+   FLOATING HUD SHELL
+   ========================================================================= */
+.hud-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    max(14px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
+  z-index: 10;
+}
+
+.glass-pill {
+  pointer-events: auto;
+  background: rgba(14, 24, 42, 0.56);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 28px rgba(5, 10, 22, 0.28);
+  border-radius: 999px;
+}
+
+/* =========================================================================
+   TOP BAR: BRAND + TELEMETRY + QUICK SETTINGS
+   ========================================================================= */
+.top-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.brand-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 11px;
+}
+
+.brand-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffb703, #fb8500);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  box-shadow: 0 2px 10px rgba(251, 133, 0, 0.45);
+  flex-shrink: 0;
+}
+
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.brand-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #fffdf9;
+}
+
+.telemetry-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: rgba(248, 250, 252, 0.85);
+  font-variant-numeric: tabular-nums;
+}
+
+.telemetry-sep {
+  opacity: 0.35;
+}
+
+.stat-highlight {
+  font-weight: 700;
+  color: #ffd166;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-pill-btn {
+  pointer-events: auto;
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(14, 24, 42, 0.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f8fafc;
+  height: 40px;
+  min-width: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.14s ease, background 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 6px 20px rgba(5, 10, 22, 0.24);
+}
+
+.icon-pill-btn:active {
+  transform: scale(0.93);
+}
+
+.icon-pill-btn.active {
+  background: rgba(255, 183, 3, 0.28);
+  border-color: rgba(255, 209, 102, 0.75);
+  color: #fff6d6;
+}
+
+.icon-only {
+  padding: 0;
+  width: 40px;
+  font-size: 16px;
+}
+
+/* =========================================================================
+   CUSTOMIZE POPOVER DRAWER
+   ========================================================================= */
+.custom-drawer {
+  pointer-events: none;
+  position: fixed;
+  top: calc(max(12px, env(safe-area-inset-top)) + 50px);
+  right: max(12px, env(safe-area-inset-right));
+  width: min(290px, calc(100vw - 24px));
+  background: rgba(13, 23, 40, 0.82);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 14px 15px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.custom-drawer.open {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.drawer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawer-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(248, 250, 252, 0.72);
+  display: flex;
+  justify-content: space-between;
+}
+
+.swatch-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.paint-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.paint-swatch.active {
+  transform: scale(1.14);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.55);
+}
+
+.mini-seg-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.mini-seg-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+  color: #f1f5f9;
+  border-radius: 10px;
+  padding: 7px 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.mini-seg-btn.active {
+  background: rgba(34, 158, 188, 0.48);
+  border-color: #72efdd;
+  color: #ffffff;
+}
+
+.speed-range {
+  width: 100%;
+  accent-color: #ffb703;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* =========================================================================
+   CENTER FEEDBACK TOAST & INITIAL TOUCH HINT
+   ========================================================================= */
+.toast-banner {
+  position: fixed;
+  top: calc(max(12px, env(safe-area-inset-top)) + 56px);
+  left: 50%;
+  transform: translate(-50%, -10px);
+  background: rgba(14, 24, 42, 0.76);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 209, 102, 0.45);
+  color: #fff9eb;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: calc(100vw - 28px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.toast-banner.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.touch-hint {
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: 10px;
+  background: rgba(14, 24, 42, 0.46);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.touch-hint.hidden {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* =========================================================================
+   BOTTOM CONTROLS: CAMERA CHIPS + THUMB ACTION DOCK
+   ========================================================================= */
+.bottom-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+}
+
+.cam-strip {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 3px 4px;
+}
+
+.cam-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.cam-chip {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(14, 24, 42, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(248, 250, 252, 0.86);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
+}
+
+.cam-chip:active {
+  transform: scale(0.94);
+}
+
+.cam-chip.active {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  border-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+.action-dock {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(56px, 74px));
+  gap: 7px;
+  padding: 7px;
+  background: rgba(12, 21, 38, 0.62);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  box-shadow: 0 12px 34px rgba(4, 9, 20, 0.38);
+  max-width: 100%;
+}
+
+.dock-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  border-radius: 17px;
+  height: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.12s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.dock-btn:active,
+.dock-btn.active {
+  transform: scale(0.92);
+  background: rgba(255, 183, 3, 0.32);
+  border-color: rgba(255, 209, 102, 0.8);
+}
+
+.dock-btn-primary {
+  background: linear-gradient(145deg, rgba(251, 133, 0, 0.42), rgba(255, 183, 3, 0.24));
+  border-color: rgba(255, 200, 87, 0.45);
+}
+
+.dock-btn-turbo {
+  background: linear-gradient(145deg, rgba(34, 158, 188, 0.42), rgba(58, 134, 255, 0.26));
+  border-color: rgba(114, 239, 221, 0.42);
+}
+
+.dock-icon {
+  font-size: 19px;
+  line-height: 1.05;
+}
+
+.dock-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+/* =========================================================================
+   SMALL PORTRAIT & LANDSCAPE PHONE ADAPTATIONS
+   ========================================================================= */
+@media (max-width: 390px) {
+  .brand-title {
+    font-size: 13px;
+  }
+  .theme-text-label {
+    display: none;
+  }
+  .action-dock {
+    grid-template-columns: repeat(5, minmax(52px, 1fr));
+    width: 100%;
+    gap: 5px;
+    padding: 6px;
+  }
+  .dock-btn {
+    height: 50px;
+  }
+}
+
+@media (max-height: 500px) {
+  /* Landscape phone layout: ultra-compact bars so the 3D pelican fills the view! */
+  .brand-card {
+    padding: 5px 12px 5px 8px;
+  }
+  .brand-badge {
+    width: 26px;
+    height: 26px;
+    font-size: 15px;
+  }
+  .touch-hint {
+    display: none;
+  }
+  .bottom-stack {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .action-dock {
+    padding: 5px;
+    gap: 5px;
+  }
+  .dock-btn {
+    height: 44px;
+    min-width: 52px;
+  }
+  .dock-icon {
+    font-size: 16px;
+  }
+}

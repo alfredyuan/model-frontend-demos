@@ -23,6 +23,7 @@
     border-radius:999px; color:#fff; }
   .model.claude { background:#c15f3c; }
   .model.gpt { background:#10a37f; }
+  .model.gemini { background:#4285f4; }
   .meta h3 { font-size:16px; font-weight:700; margin-top:8px; }
   .meta dl { display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin-top:8px;
     font-size:12.5px; }
@@ -38,9 +39,29 @@
   <p class="sub">大模型前端生成能力展示</p>
 
   <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
-  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Claude Fable 5.2、Claude Opus 5.5、GPT-6.1 Sol 和 GPT-6 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Gemini 4 Carbon、Claude Fable 5.2、Claude Opus 5.5、GPT-6.1 Sol 和 GPT-6 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
 
   <div class="grid">
+    <div class="card">
+      <a href="./pelican-gemini-4-carbon-high/"><img src="./pelican-gemini-4-carbon-high/preview.png" alt="Gemini 4 Carbon high 版本"></a>
+      <div class="meta">
+        <span class="model gemini">Gemini 4 Carbon</span>
+        <h3>海滨栈道 · 投喂小鱼</h3>
+        <dl>
+          <dt>工具</dt><dd>Cursor Agent 2026.10.22 · gemini-4-carbon-high · --force 无头模式新会话（MB03）</dd>
+          <dt>日期</dt><dd>2026-11-11</dd>
+          <dt>过程</dt><dd>同一提示词，一次完成，未反馈报错。机器上没有 Chrome/Playwright，它找到系统 Firefox 用无头模式截图，并写 Node 脚本渲染鹈鹕骨架预览，前后看了 7 张图做视觉自检。页面代码未经人工修改</dd>
+          <dt>内容</dt><dd>IK 双腿踩踏、会鼓起的喉囊、投喂接鱼、翘头/起跳/冲刺特技、5 个机位、5 种车漆、3 种天色、GLSL 海浪、程序化贴图与合成音效</dd>
+          <dt>已知问题</dt><dd>脖子是分段堆叠的造型；横屏时操作提示条压住车轮；场景较重（Mac 无头 Chrome 11–17 fps），真机帧率未实测</dd>
+          <dt>耗时/用量</dt><dd>43 分钟 · 输出约 17k tokens · 输入约 256k（另缓存读 2.37M）</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-gemini-4-carbon-high/">打开页面 →</a>
+          <a href="./pelican-gemini-4-carbon-high/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <a href="./pelican-claude-fable-5.2/"><img src="./pelican-claude-fable-5.2/preview.png" alt="Claude Fable 5.2 版本"></a>
       <div class="meta">

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#182b49" />
+  <meta name="description" content="鹈鹕骑自行车 · Three.js r160 交互式 3D 海滨骑行场景" />
+  <title>鹈鹕骑自行车 · Pelican Pier 3D</title>
+  <link
+    rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23229ebc'/%3E%3Cpath d='M18 36c4-12 16-16 26-10l10 4-14 8c-4 6-14 8-22-2z' fill='%23fff8eb'/%3E%3Cpath d='M36 28l20 2-12 9c-4 2-8-1-8-11z' fill='%23ff8524'/%3E%3C/svg%3E"
+  />
+  <link rel="stylesheet" href="./css/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="scene-canvas" aria-label="鹈鹕骑自行车 3D 交互画面"></canvas>
+
+  <!-- Floating Mobile-First Glassmorphic HUD -->
+  <div class="hud-layer">
+    <header class="top-bar">
+      <div class="glass-pill brand-card">
+        <div class="brand-badge" aria-hidden="true">🦢</div>
+        <div class="brand-meta">
+          <h1 class="brand-title">鹈鹕海滨骑行记</h1>
+          <div class="telemetry-row">
+            <span><strong id="speed-val" class="stat-highlight">17</strong> km/h</span>
+            <span class="telemetry-sep">|</span>
+            <span>接鱼 <strong id="fish-count" class="stat-highlight">0</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button id="btn-theme" class="icon-pill-btn" type="button" title="切换天色氛围">
+          <span id="theme-icon">🌅</span><span id="theme-label" class="theme-text-label">加州金辉</span>
+        </button>
+        <button id="btn-custom" class="icon-pill-btn icon-only" type="button" aria-label="换装与巡航调速" title="换装与巡航调速">
+          🎨
+        </button>
+        <button id="btn-sound" class="icon-pill-btn icon-only" type="button" aria-label="关闭音效" title="海浪与车铃音效">
+          🔊
+        </button>
+      </div>
+    </header>
+
+    <div id="touch-hint" class="touch-hint">
+      👆 单指旋转 · 双指缩放 · 点击车铃或投喂小鱼
+    </div>
+
+    <footer class="bottom-stack">
+      <!-- Camera Preset Chips -->
+      <nav class="cam-strip" aria-label="镜头机位切换">
+        <button class="cam-chip active" type="button" data-cam="hero">经典全景</button>
+        <button class="cam-chip" type="button" data-cam="closeup">大嘴喉囊</button>
+        <button class="cam-chip" type="button" data-cam="drivetrain">脚蹼链条</button>
+        <button class="cam-chip" type="button" data-cam="pov">第一视角</button>
+        <button class="cam-chip" type="button" data-cam="drone">环绕航拍</button>
+      </nav>
+
+      <!-- Thumb Action Dock -->
+      <div class="action-dock" role="toolbar" aria-label="互动特技操作栏">
+        <button id="btn-fish" class="dock-btn dock-btn-primary" type="button">
+          <span class="dock-icon">🐟</span>
+          <span class="dock-text">投喂</span>
+        </button>
+        <button id="btn-bell" class="dock-btn" type="button">
+          <span class="dock-icon">🔔</span>
+          <span class="dock-text">车铃</span>
+        </button>
+        <button id="btn-wheelie" class="dock-btn" type="button">
+          <span class="dock-icon">🎪</span>
+          <span class="dock-text">翘头</span>
+        </button>
+        <button id="btn-hop" class="dock-btn" type="button">
+          <span class="dock-icon">🦘</span>
+          <span class="dock-text">起跳</span>
+        </button>
+        <button id="btn-turbo" class="dock-btn dock-btn-turbo" type="button">
+          <span class="dock-icon">🚀</span>
+          <span class="dock-text">冲刺</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Customize & Speed Popover -->
+  <aside id="custom-panel" class="custom-drawer" aria-label="个性化设置">
+    <div class="drawer-row">
+      <div class="drawer-label"><span>海滨时段</span></div>
+      <div class="mini-seg-group">
+        <button class="mini-seg-btn active" type="button" data-theme-pick="sunset">🌅 金辉</button>
+        <button class="mini-seg-btn" type="button" data-theme-pick="sunny">☀️ 晴空</button>
+        <button class="mini-seg-btn" type="button" data-theme-pick="night">🌙 星夜</button>
+      </div>
+    </div>
+
+    <div class="drawer-row">
+      <div class="drawer-label"><span>复古单车漆色</span></div>
+      <div class="swatch-group">
+        <button class="paint-swatch active" type="button" data-paint="#229ebc" style="background:#229ebc" aria-label="海沫青"></button>
+        <button class="paint-swatch" type="button" data-paint="#e76f51" style="background:#e76f51" aria-label="珊瑚橙"></button>
+        <button class="paint-swatch" type="button" data-paint="#f4a261" style="background:#f4a261" aria-label="暖阳金"></button>
+        <button class="paint-swatch" type="button" data-paint="#3a86ff" style="background:#3a86ff" aria-label="海湾蓝"></button>
+        <button class="paint-swatch" type="button" data-paint="#ef476f" style="background:#ef476f" aria-label="火烈粉"></button>
+      </div>
+    </div>
+
+    <div class="drawer-row">
+      <div class="drawer-label"><span>鹈鹕穿搭</span></div>
+      <div class="mini-seg-group">
+        <button class="mini-seg-btn active" type="button" data-outfit="aviator">🧣 领巾</button>
+        <button class="mini-seg-btn" type="button" data-outfit="goggles">🥽 护目镜</button>
+        <button class="mini-seg-btn" type="button" data-outfit="pure">🦢 原生态</button>
+      </div>
+    </div>
+
+    <div class="drawer-row">
+      <label class="drawer-label" for="speed-slider">
+        <span>巡航配速</span>
+        <span>滑行 ⇄ 疾驰</span>
+      </label>
+      <input
+        id="speed-slider"
+        class="speed-range"
+        type="range"
+        min="0.2"
+        max="8.5"
+        step="0.1"
+        value="4.8"
+      />
+    </div>
+  </aside>
+
+  <!-- Floating Action Feedback Toast -->
+  <div id="toast-banner" class="toast-banner" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
