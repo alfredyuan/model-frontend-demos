@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3ea">
+  <meta name="description" content="一只鹈鹕，一辆单车，还有不赶时间的海岸线。欢迎来到 Pelican Post 的交互式 3D 小岛。">
+  <title>Pelican Post — 把日子骑成一首诗</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%232c5046'/%3E%3Cpath d='M17 40Q12 23 30 25V17Q41 9 44 22L58 28H42Q40 44 24 45Z' fill='%23fff5df'/%3E%3Ccircle cx='39' cy='21' r='2' fill='%232c5046'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}
+  </script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM9 21h6M12 1v2"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14A8.7 8.7 0 0 1 10 3a9 9 0 1 0 10.5 11Z"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 7h4l2-3h6l2 3h4v13H3Z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h5"/></symbol>
+  </defs></svg>
+
+  <header class="header">
+    <a class="brand" href="./" aria-label="Pelican Post 首页">
+      <span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 29c-4-10 6-14 13-8V13c0-8 14-9 14 0l8 7H32c-1 10-8 17-18 14Z" fill="currentColor"/><circle cx="31" cy="12" r="1.6" fill="#2c5046"/><path d="M8 37h25M17 35v5m8-5v5" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span class="brand-type">PELICAN POST<span>鹈 鹕 海 岸 邮 局</span></span>
+    </a>
+    <div class="header-center"><span class="tiny-dot"></span> LITTLE RIDES. BIG FEELINGS.</div>
+    <div class="weather"><svg><use href="#i-sun"/></svg><span id="weather-text">海风刚刚好</span><span class="weather-temp" id="temperature">24°</span></div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="eyebrow"><span></span> 把日子骑成一首诗</div>
+      <h1 id="hero-title">Less hurry.<br>More <em>happy.</em></h1>
+      <p class="hero-description">一只鹈鹕，一辆单车，<br>还有不赶时间的海岸线。</p>
+      <button class="bell-cta" id="bell-button" aria-label="按响车铃，和世界打个招呼" title="按响车铃"><svg><use href="#i-bell"/></svg><span>叮！和世界打个招呼</span><span class="cta-arrow">↗</span></button>
+      <div class="hero-note"><span class="note-line"></span> 今天的快乐，正在派送。</div>
+    </section>
+
+    <section id="stage" class="stage" aria-label="可交互的 3D 鹈鹕骑车小岛。拖动旋转，双指缩放。">
+      <canvas id="scene" aria-label="鹈鹕邮差骑着薄荷绿自行车，经过灯塔与海岸" tabindex="0"></canvas>
+      <div id="loading" class="loading"><span class="loading-wheel"></span><span>海风正在赶来…</span></div>
+      <div id="webgl-error" class="webgl-error" hidden><span>海风暂时迷路了</span><p>当前浏览器无法开启 3D。请在支持 WebGL 的浏览器中重新打开。</p><button id="reload-button">再试一次 ↗</button></div>
+    </section>
+
+    <div class="postmark" aria-hidden="true"><svg viewBox="0 0 150 150"><defs><path id="stamp-circle" d="M75 75 m-54 0 a54 54 0 1 1 108 0 a54 54 0 1 1-108 0"/></defs><circle cx="75" cy="75" r="68"/><circle cx="75" cy="75" r="46"/><text><textPath href="#stamp-circle" startOffset="0">DELIVERING HAPPINESS · SINCE TODAY · </textPath></text><path d="M49 78h53M54 88h43"/><text class="stamp-center" x="75" y="69" text-anchor="middle">邮</text></svg></div>
+
+    <div class="scene-label"><span class="label-line"></span><div><span class="label-top">01 / THE COASTAL ROUTE</span><strong>海风慢递</strong></div><span class="label-coordinates">24° N<br>118° E</span></div>
+
+    <aside class="ride-card" aria-label="骑行状态"><span class="ride-card-icon"><svg><use href="#i-wind"/></svg></span><div><span class="ride-card-title" id="ride-status">快乐派送中</span><span class="ride-card-sub"><span id="distance">0.00</span> km 的好心情</span></div><span class="live-dot" id="live-dot"></span></aside>
+
+    <div class="controls" aria-label="场景控制">
+      <button class="play-button icon-button" id="play-button" aria-label="暂停骑行" title="暂停骑行" aria-pressed="false"><svg><use id="play-icon" href="#i-pause"/></svg></button>
+      <div class="speed-control"><label for="speed">骑慢一点 <span id="speed-value">12<span> km/h</span></span></label><input id="speed" aria-label="骑行速度" type="range" min="4" max="24" step="1" value="12"></div>
+      <span class="control-divider"></span>
+      <div class="theme-controls" aria-label="昼夜模式"><button class="icon-button active" id="day-button" aria-label="白昼" title="白昼" aria-pressed="true"><svg><use href="#i-sun"/></svg></button><button class="icon-button" id="night-button" aria-label="夜晚" title="夜晚" aria-pressed="false"><svg><use href="#i-moon"/></svg></button></div>
+      <span class="control-divider"></span>
+      <button class="icon-button" id="reset-button" aria-label="恢复初始视角" title="恢复初始视角"><svg><use href="#i-reset"/></svg></button>
+      <button class="icon-button camera-button" id="photo-button" aria-label="保存明信片" title="保存明信片"><svg><use href="#i-camera"/></svg></button>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div class="ding" id="ding" aria-hidden="true">叮铃 ♪</div>
+  </main>
+
+  <footer class="footer"><div class="footer-left"><span class="footer-dot"></span> 一封来自海边的立体明信片</div><div class="gesture-hint"><span class="drag-symbol">↔</span> 拖动环顾 <span>·</span> 双指缩放</div><span class="footer-edition">EST. TODAY <span>✳</span> NO. 001</span></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

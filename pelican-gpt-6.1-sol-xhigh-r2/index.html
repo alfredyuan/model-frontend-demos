@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2e9">
+  <meta name="description" content="一只鹈鹕、一辆单车、一段无须赶路的海岸时光。可触摸的 Three.js 海岸微缩世界。">
+  <title>Pelican Coast — 慢一点，风景正好</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23283e35'/%3E%3Cpath d='M16 47Q11 30 25 32Q36 32 33 19Q32 10 41 13Q47 15 43 21L58 24L42 28Q40 48 16 47' fill='%23f4f2e9'/%3E%3Ccircle cx='40' cy='17' r='2' fill='%23283e35'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/addons/"}}
+  </script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M5 16h14l-2-3V9a5 5 0 0 0-10 0v4l-2 3ZM9.5 20h5M12 2v2"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 6h4l2-3h4l2 3h4v14H4Z"/><circle cx="12" cy="12" r="4"/></symbol>
+      <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 1 7M3 4v6h6"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3ZM16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+      <symbol id="i-muted" viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3Zm13 0 5 6m0-6-5 6"/></symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h13a3 3 0 1 0-3-3M3 12h17M3 16h10a3 3 0 1 1-3 3"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Pelican Coast 首页">
+      <svg class="brand-bird" viewBox="0 0 54 54" aria-hidden="true"><path d="M10 39c-4-10 0-17 10-15 7 1 10-2 8-9-2-6 0-10 5-10 6 0 9 5 6 10l12 5-14 3c-1 13-11 21-27 16Z" fill="currentColor"/><path d="m13 40-2 8m12-7v7m-15 0h9m3 0h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="35" cy="10" r="1.8" fill="var(--paper)"/><path d="m39 15 12 5-14 1" fill="var(--coral)"/></svg>
+      <span>pelican<span class="brand-second">coast club</span></span>
+    </a>
+    <nav class="header-actions" aria-label="页面操作">
+      <span class="header-caption">EST. 2026 &nbsp; / &nbsp; NOWHERE TO RUSH</span>
+      <button class="text-button" id="journal-open">骑行手记 <span aria-hidden="true">↗</span></button>
+      <span class="header-divider"></span>
+      <button class="icon-button" id="sound-button" aria-label="开启海风声" aria-pressed="false" title="海风声"><svg><use href="#i-muted"/></svg></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="experience" aria-label="鹈鹕海岸骑行互动场景">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> A LITTLE ESCAPE, A LOT OF JOY</div>
+        <h1>Take the<br><em>scenic</em> route<span class="coral-period">.</span></h1>
+        <p class="intro">慢一点，风景正好。<br><span>跟着皮皮，沿着海岸骑一会儿。<br class="desktop-break">今天的目的地，是个好心情。</span></p>
+        <button id="ride-button" class="ride-button" aria-pressed="true"><span class="ride-icon" aria-hidden="true"><span></span><span></span></span><span id="ride-label">歇一会儿</span><svg><use href="#i-arrow"/></svg></button>
+        <div class="little-note"><span class="note-line"></span><span>不必抵达，也是一种出发。</span></div>
+      </div>
+
+      <div class="scene-wrap" id="scene-wrap">
+        <div class="scene-halo" aria-hidden="true"></div>
+        <div id="scene" role="img" aria-label="一只戴着绿色头盔、系着橙色围巾的鹈鹕，骑着珊瑚色自行车，经过有灯塔、沙滩和帆船的海岸。拖动旋转视角，双指缩放。"></div>
+        <div id="loading" class="loading"><span class="loading-wheel"></span><span>海风正在赶来…</span></div>
+        <div class="scene-coordinate" aria-hidden="true">34° 02′ N &nbsp; 118° 30′ W<br><span>A GOOD PLACE TO GET LOST</span></div>
+        <div class="weather"><svg><use href="#i-sun" id="weather-icon"/></svg><div><span id="weather-title">晴，适合兜风</span><small id="weather-subtitle">24° &nbsp; / &nbsp; 海风轻轻</small></div></div>
+        <div class="scene-caption"><span class="caption-marker"></span><span>皮皮的环岛日常</span><span class="caption-number">01 / 365</span></div>
+      </div>
+
+      <div class="scene-tools" aria-label="场景工具">
+        <button class="tool-button" id="day-button" aria-label="切换到月夜" aria-pressed="false" title="切换昼夜"><svg><use href="#i-moon" id="day-icon"/></svg><span id="day-label">等月亮</span></button>
+        <button class="tool-button" id="photo-button" aria-label="保存场景为明信片" title="保存明信片"><svg><use href="#i-camera"/></svg><span>明信片</span></button>
+        <button class="tool-button" id="reset-button" aria-label="恢复初始视角" title="恢复视角"><svg><use href="#i-reset"/></svg><span>回到这里</span></button>
+      </div>
+
+      <div class="ride-console">
+        <div class="route-info"><span class="route-number">01</span><div><span class="route-label">THE COASTAL LOOP</span><strong>海盐湾 · 环岛慢行</strong></div></div>
+        <span class="console-divider"></span>
+        <div class="speed-control"><div class="speed-heading"><label for="speed">骑行节奏</label><output id="speed-output" for="speed">悠哉哉</output></div><div class="range-line"><span aria-hidden="true">慢</span><input id="speed" type="range" min="0.35" max="2.2" step="0.05" value="1" aria-label="骑行速度"><span aria-hidden="true">快</span></div></div>
+        <button class="bell-button" id="bell-button" aria-label="按车铃，叮铃！"><svg><use href="#i-bell"/></svg><span>叮铃一下</span><kbd>B</kbd></button>
+      </div>
+
+      <div class="interaction-hint"><span class="drag-icon" aria-hidden="true">↔</span><span class="pointer-hint">拖动探索 · 滚轮拉近</span><span class="touch-hint">单指旋转 · 双指缩放</span></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>A SMALL WORLD. A SOFTER PACE.</span><span class="footer-center">用一点想象力，换一整片海。</span><span>MADE FOR THE DETOUR <span class="footer-spark">✳</span></span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="photo-flash" id="photo-flash" aria-hidden="true"></div>
+
+  <dialog id="journal" class="journal">
+    <button class="icon-button journal-close" id="journal-close" aria-label="关闭骑行手记"><svg><use href="#i-close"/></svg></button>
+    <span class="eyebrow">POSTCARDS FROM THE SLOW LANE</span>
+    <div class="journal-illustration" aria-hidden="true">☀</div>
+    <h2>亲爱的赶路人，<br><em>今天，绕点远路吧。</em></h2>
+    <p>皮皮是一只住在海盐湾的鹈鹕。它有一辆珊瑚色单车、一条被风吹旧的围巾，还有一整天可以浪费。</p>
+    <p>灯塔转过一圈，浪花拍了两下。它从来没算过自己骑了多远，只记得路边的花又开了。</p>
+    <p>你也可以在这里待一会儿。转转视角，按按车铃，或等一轮月亮升起来。</p>
+    <div class="journal-signature">See you by the sea,<br><span>Pip & the coast club</span></div>
+    <div class="journal-controls"><span><kbd>空格</kbd> 骑行 / 暂停</span><span><kbd>B</kbd> 车铃</span><span><kbd>N</kbd> 昼夜</span></div>
+  </dialog>
+  <noscript><p class="no-script">请启用 JavaScript，来海边骑一会儿。</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

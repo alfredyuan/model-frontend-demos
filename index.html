@@ -39,7 +39,7 @@
   <p class="sub">大模型前端生成能力展示</p>
 
   <h2 class="topic">🚲 鹈鹕骑自行车 · 3D</h2>
-  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Gemini 4 Carbon、Claude Fable 5.2、Claude Opus 5.5、GPT-6.1 Sol、GPT-6 Astra、GPT-6.2 Sol 和 GPT-6.2 Astra 用的是同一份提示词（见各卡片的“提示词”链接）。</p>
+  <p class="topic-sub">题目：生成一个经典的「鹈鹕骑自行车」3D 网页，尽情发挥。各版本都使用本地 Three.js r160，不走 CDN。Gemini 4 Carbon、Claude Fable 5.2、Claude Opus 5.5、GPT-6.1 Sol、GPT-6 Astra、GPT-6.2 Sol 和 GPT-6.2 Astra 用的是同一份提示词；标“同条件重跑”的两版与 GPT-6.2 两版运行条件完全相同，可直接对比（见各卡片的“提示词”链接）。</p>
 
   <div class="grid">
     <div class="card">
@@ -78,6 +78,46 @@
         <div class="links">
           <a href="./pelican-gpt-6.2-sol-xhigh/">打开页面 →</a>
           <a href="./pelican-gpt-6.2-sol-xhigh/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="./pelican-gpt-6-astra-xhigh-r2/"><img src="./pelican-gpt-6-astra-xhigh-r2/preview.png" alt="GPT-6 Astra xhigh 同条件重跑"></a>
+      <div class="meta">
+        <span class="model gpt">GPT-6 Astra</span>
+        <h3>鹈鹕海岸邮局 · 同条件重跑</h3>
+        <dl>
+          <dt>工具</dt><dd>Codex CLI 0.170.0 · reasoning xhigh · workspace-write 沙箱 · 在 MB03 运行（无 Chrome），条件与两个 GPT-6.2 版完全相同</dd>
+          <dt>日期</dt><dd>2026-11-18</dd>
+          <dt>过程</dt><dd>同一提示词，一次完成。Firefox 起不来 WebGL，它改用 EGL 离屏渲染场景几何、看图后又改了一版窄屏布局，并跑了 300 帧模型计算和 7 项交互检查。页面代码未经人工修改</dd>
+          <dt>对比</dt><dd>旧版（10-02，Codex 0.154，关闭沙箱）没做视觉自检，造型较粗；这一版海岛场景完整，接近两个 6.2 版</dd>
+          <dt>已知问题</dt><dd>本机 Chrome 横屏和竖屏截图均无控制台报错；横屏下鹈鹕在画面中偏小；安卓真机未实测</dd>
+          <dt>耗时/用量</dt><dd>约 38 分钟 · 输出约 58k tokens（含推理 19k）· 输入 2.05M（其中缓存 1.52M）</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-gpt-6-astra-xhigh-r2/">打开页面 →</a>
+          <a href="./pelican-gpt-6-astra-xhigh-r2/PROMPT.md">提示词</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <a href="./pelican-gpt-6.1-sol-xhigh-r2/"><img src="./pelican-gpt-6.1-sol-xhigh-r2/preview.png" alt="GPT-6.1 Sol xhigh 同条件重跑"></a>
+      <div class="meta">
+        <span class="model gpt">GPT-6.1 Sol</span>
+        <h3>Pelican Coast Club · 同条件重跑</h3>
+        <dl>
+          <dt>工具</dt><dd>Codex CLI 0.170.0 · reasoning xhigh · workspace-write 沙箱 · 在 MB03 运行（无 Chrome），条件与两个 GPT-6.2 版完全相同</dd>
+          <dt>日期</dt><dd>2026-11-18</dd>
+          <dt>过程</dt><dd>同一提示词，一次完成。它找过 Firefox 等浏览器但没跑起来，只用真实 Three.js 加模拟 DOM 检查了桌面、触屏和减少动效三种逻辑，没有看到画面。页面代码未经人工修改</dd>
+          <dt>对比</dt><dd>旧版两版（10-02，reasoning medium）鹈鹕背对镜头或车架缺失；这一版人车完整，质量接近两个 6.2 版</dd>
+          <dt>已知问题</dt><dd>本机 Chrome 截图无控制台报错；手机竖屏大标题 “Take the scenic” 两词粘连、按钮挤在文字旁；横屏右侧图标文字被裁切</dd>
+          <dt>耗时/用量</dt><dd>约 21 分钟 · 输出约 55k tokens（含推理 16k）· 输入 1.55M（其中缓存 0.79M）</dd>
+        </dl>
+        <div class="links">
+          <a href="./pelican-gpt-6.1-sol-xhigh-r2/">打开页面 →</a>
+          <a href="./pelican-gpt-6.1-sol-xhigh-r2/PROMPT.md">提示词</a>
         </div>
       </div>
     </div>
