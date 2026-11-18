@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f2e6">
+  <meta name="description" content="鹈鹕骑着自行车经过海岸公路。一张可以旋转、缩放和切换黄昏的 3D 明信片。">
+  <title>鹈鹕骑自行车 · 海风骑行社</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="masthead page-width">
+    <div class="wordmark">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span>海风骑行社</span>
+    </div>
+    <button id="help-button" class="help-button" type="button" aria-haspopup="dialog">
+      <span class="help-icon" aria-hidden="true">?</span> 操作指南
+    </button>
+  </header>
+
+  <main class="page-width postcard">
+    <section class="story" aria-labelledby="ride-title">
+      <div class="story-intro">
+        <p class="eyebrow"><span aria-hidden="true"></span>互动 3D 明信片</p>
+        <h1 id="ride-title" aria-label="鹈鹕骑自行车"><span lang="en">Pelican<br><em>Pedal Club</em></span></h1>
+        <p class="lede">鹈鹕骑自行车</p>
+        <p class="description">围巾系紧，踩上脚踏。跟着鹈鹕沿着海岸骑一圈。</p>
+      </div>
+      <div class="story-actions">
+        <div class="ride-actions">
+          <button id="ride-button" class="ride-button" type="button" disabled>
+            <span class="ride-icon" aria-hidden="true"></span><span id="ride-label">暂停骑行</span>
+          </button>
+          <button id="bell-button" class="bell-button" type="button" disabled>
+            <span class="bell-icon" aria-hidden="true"></span><span>按车铃</span>
+          </button>
+        </div>
+        <div class="speed-row">
+          <span id="speed-label">骑行速度</span>
+          <div class="speed-buttons" role="group" aria-labelledby="speed-label">
+            <button type="button" data-speed="0.5" aria-label="半速" aria-pressed="false" disabled>0.5×</button>
+            <button type="button" data-speed="1" aria-label="原速" aria-pressed="true" disabled>1×</button>
+            <button type="button" data-speed="1.5" aria-label="一点五倍速" aria-pressed="false" disabled>1.5×</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stage" class="stage" aria-label="海岸公路的互动 3D 场景">
+      <canvas id="scene" tabindex="0" aria-label="鹈鹕骑自行车。拖动或按方向键旋转视角，双指或加减键缩放。" aria-describedby="camera-hint"></canvas>
+      <div id="loading" class="loading" role="status">
+        <span id="loading-label">正在准备海岸公路…</span>
+      </div>
+      <noscript><p class="noscript">请启用 JavaScript 查看互动 3D 场景。</p></noscript>
+      <div class="stage-top">
+        <div class="location">
+          <span class="location-pin" aria-hidden="true"></span><span>海岸公路</span>
+        </div>
+        <button id="light-button" class="light-button" type="button" aria-label="黄昏模式" aria-pressed="false" disabled>
+          <span class="light-icon" aria-hidden="true">☼</span><span id="light-label">切到黄昏</span>
+        </button>
+      </div>
+      <div class="stage-bottom">
+        <p id="camera-hint" class="camera-hint">
+          <span class="camera-icon" aria-hidden="true"></span>
+          <span class="mouse-hint">拖动旋转 · 滚轮缩放</span>
+          <span class="touch-hint">单指旋转 · 双指缩放</span>
+        </p>
+        <div class="camera-buttons" role="group" aria-label="相机控制">
+          <button id="zoom-out" type="button" aria-label="缩小" title="缩小" disabled>−</button>
+          <button id="zoom-in" type="button" aria-label="放大" title="放大" disabled>+</button>
+          <button id="reset-view" type="button" aria-label="重置视角" title="重置视角" disabled><span aria-hidden="true">↻</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-width footer">
+    <span>海风骑行社 <span aria-hidden="true">/</span> 互动明信片</span>
+    <div class="shortcuts"><span><kbd>空格</kbd> 播放或暂停</span><span><kbd>R</kbd> 重置视角</span></div>
+  </footer>
+
+  <dialog id="help" aria-labelledby="help-title">
+    <form method="dialog">
+      <button class="close-help" aria-label="关闭操作指南" autofocus>×</button>
+    </form>
+    <h2 id="help-title">操作指南</h2>
+    <dl>
+      <dt>换个角度</dt><dd>拖动画面，或聚焦画面后使用方向键。</dd>
+      <dt>靠近一点</dt><dd>双指捏合、滚动鼠标滚轮，或点击画面右下角的 ＋ / −。</dd>
+      <dt>边骑边逛</dt><dd>可随时暂停、调整骑行速度、按车铃或切到黄昏。</dd>
+    </dl>
+  </dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

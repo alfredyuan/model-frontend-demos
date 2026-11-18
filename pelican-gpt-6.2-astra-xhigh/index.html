@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f3e9">
+  <title>Pelican Post · Motion Post</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js",
+      "three/addons/": "./vendor/addons/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="mail" viewBox="0 0 64 42"><g fill="currentColor"><path d="M2 6h31l-3.2 4.5H8zM8 14h20l-3.1 4.5H14zM14 22h8.7l-3.2 4.5z"/><path fill-rule="evenodd" d="M34 6h28l-16 29H18z M34 10l4.9 13L55.7 10z M31.7 13.2l-9.9 18h21.7l8.9-16.1-15.2 11.8z"/></g></symbol>
+      <symbol id="muted" viewBox="0 0 24 24"><path d="M11.5 5.5 6.8 9H3.5v6h3.3l4.7 3.5zM16 9l5 6m0-6-5 6"/></symbol>
+      <symbol id="volume" viewBox="0 0 24 24"><path d="M11.5 5.5 6.8 9H3.5v6h3.3l4.7 3.5zM15 9a4.2 4.2 0 0 1 0 6m2.5-8.5a7.5 7.5 0 0 1 0 11"/></symbol>
+      <symbol id="expand" viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5m0 6v5h-5M9 20H4v-5"/></symbol>
+      <symbol id="contract" viewBox="0 0 24 24"><path d="M9 4v5H4m16 0h-5V4m0 16v-5h5M4 15h5v5"/></symbol>
+      <symbol id="pause" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M6.5 5.5h4v13h-4zm7 0h4v13h-4z"/></symbol>
+      <symbol id="play" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M7 4.8v14.4L19 12z"/></symbol>
+      <symbol id="camera" viewBox="0 0 24 24"><path d="M3 7.5h4.2l1.5-2.8h6.5l1.6 2.8H21v11H3z"/><circle cx="12" cy="13" r="3.3"/></symbol>
+      <symbol id="chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+      <symbol id="rotate" viewBox="0 0 24 24"><path d="M4.3 10a8 8 0 1 1 1.1 6.6M4 4.5v5.9h5.9"/></symbol>
+      <symbol id="orbit" viewBox="0 0 24 24"><ellipse cx="12" cy="13.3" rx="9.3" ry="4.1" transform="rotate(-17 12 13.3)"/><path d="m16.5 6.5 3.5.8-.9 3.2"/><circle fill="currentColor" stroke="none" cx="12" cy="12" r="2.4"/></symbol>
+      <symbol id="pin" viewBox="0 0 24 24"><path d="M18.5 10c0 5.1-6.5 10-6.5 10S5.5 15.1 5.5 10a6.5 6.5 0 1 1 13 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+    </defs>
+  </svg>
+  <div class="app">
+    <header class="masthead">
+      <div class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#mail"/></svg><span>Motion Post</span></div>
+      <span class="collection">Interactive postcards</span>
+      <div class="utilities">
+        <button id="sound" class="sound" type="button" aria-pressed="false" title="环境声音 · Toggle coastal ambience"><svg class="icon"><use href="#muted"/></svg><span>Sound off</span></button>
+        <span class="divider"></span>
+        <button id="fullscreen" class="icon-btn" type="button" aria-label="Full screen" title="全屏 · Full screen"><svg class="icon"><use href="#expand"/></svg></button>
+      </div>
+    </header>
+    <main>
+      <article class="postcard">
+        <div class="scene" id="scene" aria-label="Interactive 3D pelican cycling beside the sea">
+          <canvas id="world" tabindex="0" aria-label="Coastal ride. Drag to orbit, pinch or scroll to zoom. Use the camera menu for preset views."></canvas>
+          <div class="grain" aria-hidden="true"></div>
+          <div class="titles">
+            <div class="folio"><i></i>Postcard Nº 001</div>
+            <h1>Pelican<br><em>Post<span>.</span></em></h1>
+            <p>A seaside special delivery.</p>
+          </div>
+          <canvas id="postage" width="420" height="264" aria-hidden="true"></canvas>
+          <div class="scene-bottom"><span class="location"><svg class="icon"><use href="#pin"/></svg>Saltwind Coast</span><span class="gesture"><svg class="icon"><use href="#orbit"/></svg>Drag to orbit</span></div>
+        </div>
+        <div class="desk" aria-label="Ride controls">
+          <button id="ride" class="ride" type="button" title="暂停或继续骑行"><svg class="icon"><use href="#pause"/></svg><span>Pause ride</span></button>
+          <span class="control-rule"></span>
+          <div class="speed-controls"><span class="control-label">Pace</span><div class="speeds" role="group" aria-label="Playback speed">
+            <button data-speed="0.5" aria-pressed="false">0.5×</button><button data-speed="1" aria-pressed="true">1×</button><button data-speed="2" aria-pressed="false">2×</button>
+          </div></div>
+          <div class="view-controls"><label class="control-label" for="camera">Camera</label><div class="select-wrap"><svg class="icon"><use href="#camera"/></svg><select id="camera" aria-label="Camera view"><option value="postcard">Postcard view</option><option value="profile">Side profile</option><option value="portrait">Rider close-up</option></select><svg class="icon arrow"><use href="#chevron"/></svg></div>
+          <button id="reset" class="reset" type="button" aria-label="Reset camera" title="重置视角 · Reset camera"><svg class="icon"><use href="#rotate"/></svg></button></div>
+        </div>
+      </article>
+      <footer><div class="airmail"><span class="stripes"></span>Air mail <b>·</b> Par avion</div><div class="edition">The Coastal Collection <i>/</i> <span>Vol. 01</span></div></footer>
+    </main>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
